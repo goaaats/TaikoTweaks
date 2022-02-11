@@ -14,3 +14,6 @@
 
 ### General
 * Various fixes for animations on high FPS
+
+## Requirements and acknowledgements
+* Requires [Fluto's custom song loader](https://github.com/Fluto/TakoTako), at least version 2.1.0

@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>goat.taikotweaks</AssemblyName>
+    <Description>Various tweaks for Taiko no Tatsujin: The Drum Master</Description>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>TaikoTweaks</RootNamespace>
+    <PackageId>goat.taikotweaks</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <NoWarn>Publicizer001</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="Costura.Fody" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Fody" Version="6.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Taiko.GameLibs" Version="1.2.2-r.1" />
+    <PackageReference Include="UnityEngine.Modules" Version="2020.3.19" IncludeAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\difficons.assets" />
+    <EmbeddedResource Include="Resources\difficons.assets" />
+  </ItemGroup>
+
+  <Target Name="PostBuildCopy" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="D:\XboxGames\T Tablet\Content\BepInEx\plugins\$(AssemblyName)" />
+  </Target>
+</Project>

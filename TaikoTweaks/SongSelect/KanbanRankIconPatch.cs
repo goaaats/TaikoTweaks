@@ -115,7 +115,8 @@ public class KanbanRankIconPatch
 
         if (song.HighScores != null)
         {
-            var didAny = false;
+            var maxCrown = DataConst.CrownType.None;
+            var maxEnsoLevel = EnsoData.EnsoLevelType.Easy;
             for (var i = 0; i < 5; i++)
             {
                 if (song.HighScores[i].crown is DataConst.CrownType.None or DataConst.CrownType.Off)
@@ -123,7 +124,19 @@ public class KanbanRankIconPatch
                     continue;
                 }
 
-                switch (song.HighScores[i].crown)
+                maxCrown = song.HighScores[i].crown;
+                maxEnsoLevel = (EnsoData.EnsoLevelType) i;
+            }
+
+            if (maxCrown == DataConst.CrownType.None)
+            {
+                // UnityEngine.Debug.Log($"No crown for {song.TitleText}");
+                animator.Play("None");
+                diffIcon.enabled = false;
+            }
+            else
+            {
+                switch (maxCrown)
                 {
                     case DataConst.CrownType.Silver:
                         animator.Play("Silver");
@@ -139,15 +152,9 @@ public class KanbanRankIconPatch
                         break;
                 }
 
-                diffIcon.sprite = LevelIcons[(EnsoData.EnsoLevelType)i];
+                // UnityEngine.Debug.Log($"{song.TitleText}: Set {maxCrown}({maxEnsoLevel})");
+                diffIcon.sprite = LevelIcons[maxEnsoLevel];
                 diffIcon.enabled = true;
-                didAny = true;
-            }
-
-            if (!didAny)
-            {
-                animator.Play("None");
-                diffIcon.enabled = false;
             }
         }
         else
